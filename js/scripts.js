@@ -2,17 +2,31 @@ $(document).ready(function () {
   $("#groceries").submit(function (event) {
     event.preventDefault();
 
-    // create an array for items (as indicated in the HTML)
     var groceryItems = ["item1", "item2", "item3"];
 
+    var sortedList = [];
+
     groceryItems.forEach(function(groceryItem) {
-      var item = $("input#" + groceryItem).val();
+      var userInput = $("input#" + groceryItem).val();
+      $("." + groceryItem).text(userInput);
+      sortedList.push(userInput);
+    });
 
-      $("." + groceryItem).append(item);
+    sortedList.sort();
 
+    var toUpper = function(sortedList) {
+      return sortedList.toUpperCase();
+    }
 
-      $("#output").show(groceryItem);
+    var capitalizedList = sortedList.map(toUpper);
+
+    capitalizedList.forEach(function(userInput) {
+      $("#list").append("<li>" + userInput + "</li>");
+    });
+
+    // document.write(capitalizedList);
+
+      $("#output").show();
       $("#groceries").hide();
     });
   });
-});
